@@ -2,6 +2,7 @@
     "name": "francerz/php-oauth2-core",
     "description": "Core classes for francer/php-oauth2 packages",
     "keywords": ["oauth2", "psr-7"],
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "Francerz\\OAuth2\\" : "src"
