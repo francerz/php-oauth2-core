@@ -8,10 +8,10 @@ use Psr\Http\Message\MessageInterface;
 class AccessToken implements \JsonSerializable
 {
 
-    public $accessToken;
-    public $tokenType;
-    public $expiresIn;
-    public $refreshToken;
+    private $accessToken;
+    private $tokenType;
+    private $expiresIn;
+    private $refreshToken;
 
     private $scope = '';
 
