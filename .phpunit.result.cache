@@ -1,1 +1,0 @@
-C:37:"PHPUnit\Runner\DefaultTestResultCache":139:{a:2:{s:7:"defects";a:0:{}s:5:"times";a:2:{s:34:"AccessTokenTest::testInstantiation";d:0.006;s:33:"AccessTokenTest::testJsonEncoding";d:0;}}}
