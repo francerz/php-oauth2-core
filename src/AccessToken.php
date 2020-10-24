@@ -69,7 +69,7 @@ class AccessToken implements \JsonSerializable
 
     public function isExpired(int $s = 30) : bool
     {
-        return ($this->getExpireTime() >= time() - $s);
+        return $this->getExpireTime() < time() - $s;
     }
 
     public function __toString()
