@@ -2,7 +2,7 @@
 
 namespace Francerz\OAuth2;
 
-use Francerz\Http\Tools\MessageHelper;
+use Francerz\Http\Utils\MessageHelper;
 use Psr\Http\Message\MessageInterface;
 
 class AccessToken implements \JsonSerializable
