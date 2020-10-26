@@ -4,42 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3761e69b7e7f9b7b8b0492c898c2cae9",
+    "content-hash": "bb24dcf86063309c7c85a5c5596ac546",
     "packages": [
-        {
-            "name": "francerz/http",
-            "version": "v0.2.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/francerz/php-http.git",
-                "reference": "7c49c38c52b8ca874bda4077405df4e302b3432d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/francerz/php-http/zipball/7c49c38c52b8ca874bda4077405df4e302b3432d",
-                "reference": "7c49c38c52b8ca874bda4077405df4e302b3432d",
-                "shasum": ""
-            },
-            "require": {
-                "francerz/http-utils": "^0.2",
-                "francerz/php-power-data": "^0.1",
-                "psr/http-client": "^1.0",
-                "psr/http-factory": "^1.0",
-                "psr/http-message": "^1.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^9.2"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Francerz\\Http\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "description": "Basic HTTP client",
-            "time": "2020-10-26T19:12:32+00:00"
-        },
         {
             "name": "francerz/http-utils",
             "version": "v0.2.10",
@@ -88,87 +54,6 @@
                 "psr-7"
             ],
             "time": "2020-10-26T18:58:40+00:00"
-        },
-        {
-            "name": "francerz/php-power-data",
-            "version": "v0.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/francerz/php-power-data.git",
-                "reference": "33fe22280e4e2824a9361a25cd020b8e0b4ebe0e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/francerz/php-power-data/zipball/33fe22280e4e2824a9361a25cd020b8e0b4ebe0e",
-                "reference": "33fe22280e4e2824a9361a25cd020b8e0b4ebe0e",
-                "shasum": ""
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^6.5"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Francerz\\PowerData\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "authors": [
-                {
-                    "name": "Fran CZ"
-                }
-            ],
-            "description": "PHP data structures for complex data handling",
-            "time": "2020-10-05T22:54:16+00:00"
-        },
-        {
-            "name": "psr/http-client",
-            "version": "1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-fig/http-client.git",
-                "reference": "2dfb5f6c5eff0e91e20e913f8c5452ed95b86621"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-client/zipball/2dfb5f6c5eff0e91e20e913f8c5452ed95b86621",
-                "reference": "2dfb5f6c5eff0e91e20e913f8c5452ed95b86621",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.0 || ^8.0",
-                "psr/http-message": "^1.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Psr\\Http\\Client\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
-                }
-            ],
-            "description": "Common interface for HTTP clients",
-            "homepage": "https://github.com/php-fig/http-client",
-            "keywords": [
-                "http",
-                "http-client",
-                "psr",
-                "psr-18"
-            ],
-            "time": "2020-06-29T06:28:15+00:00"
         },
         {
             "name": "psr/http-factory",
@@ -343,6 +228,72 @@
                 }
             ],
             "time": "2020-05-29T17:27:14+00:00"
+        },
+        {
+            "name": "francerz/http",
+            "version": "v0.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/francerz/php-http.git",
+                "reference": "7c49c38c52b8ca874bda4077405df4e302b3432d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/francerz/php-http/zipball/7c49c38c52b8ca874bda4077405df4e302b3432d",
+                "reference": "7c49c38c52b8ca874bda4077405df4e302b3432d",
+                "shasum": ""
+            },
+            "require": {
+                "francerz/http-utils": "^0.2",
+                "francerz/php-power-data": "^0.1",
+                "psr/http-client": "^1.0",
+                "psr/http-factory": "^1.0",
+                "psr/http-message": "^1.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Francerz\\Http\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Basic HTTP client",
+            "time": "2020-10-26T19:12:32+00:00"
+        },
+        {
+            "name": "francerz/php-power-data",
+            "version": "v0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/francerz/php-power-data.git",
+                "reference": "33fe22280e4e2824a9361a25cd020b8e0b4ebe0e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/francerz/php-power-data/zipball/33fe22280e4e2824a9361a25cd020b8e0b4ebe0e",
+                "reference": "33fe22280e4e2824a9361a25cd020b8e0b4ebe0e",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Francerz\\PowerData\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Fran CZ"
+                }
+            ],
+            "description": "PHP data structures for complex data handling",
+            "time": "2020-10-05T22:54:16+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -1158,6 +1109,55 @@
                 }
             ],
             "time": "2020-10-19T09:23:29+00:00"
+        },
+        {
+            "name": "psr/http-client",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/http-client.git",
+                "reference": "2dfb5f6c5eff0e91e20e913f8c5452ed95b86621"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/http-client/zipball/2dfb5f6c5eff0e91e20e913f8c5452ed95b86621",
+                "reference": "2dfb5f6c5eff0e91e20e913f8c5452ed95b86621",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0 || ^8.0",
+                "psr/http-message": "^1.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Http\\Client\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for HTTP clients",
+            "homepage": "https://github.com/php-fig/http-client",
+            "keywords": [
+                "http",
+                "http-client",
+                "psr",
+                "psr-18"
+            ],
+            "time": "2020-06-29T06:28:15+00:00"
         },
         {
             "name": "sebastian/cli-parser",
