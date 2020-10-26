@@ -2,9 +2,9 @@
 
 namespace Francerz\OAuth2;
 
-use Francerz\Http\Constants\StatusCodes;
-use Francerz\Http\Tools\HttpFactoryManager;
-use Francerz\Http\Tools\UriHelper;
+use Francerz\Http\Utils\Constants\StatusCodes;
+use Francerz\Http\Utils\HttpFactoryManager;
+use Francerz\Http\Utils\UriHelper;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
 

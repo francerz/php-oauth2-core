@@ -14,7 +14,6 @@ class AccessTokenTest extends TestCase
         $this->assertEquals(3600,       $at->getExpiresIn());
         $this->assertEquals('ijklmnop', $at->getRefreshToken());
         $this->assertEquals(10000,      $at->getCreateTime());
-        $this->assertEquals('scp1 scp2',$at->getScope());
 
         return $at;
     }
