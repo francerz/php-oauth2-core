@@ -56,6 +56,8 @@ class ServerAccessToken extends AccessToken
 
     public function matchAnyScope(array $scopes)
     {
+        if (empty($scopes)) return true;
+        
         $matching = array_intersect($this->scopesArray, $scopes);
         return !empty($matching);
     }
