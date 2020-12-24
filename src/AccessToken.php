@@ -21,13 +21,19 @@ class AccessToken implements \JsonSerializable
     {
         $at = MessageHelper::getContent($message);
 
-        return new static(
+        $instance = new static(
             $at->access_token,
             $at->token_type,
             $at->expires_in,
             isset($at->refresh_token) ? $at->refresh_token : null,
             null
         );
+
+        foreach ($at as $k => $v) {
+            $instance->setParameter($k, $v);
+        }
+
+        return $instance;
     }
 
     public function __construct(
@@ -54,7 +60,7 @@ class AccessToken implements \JsonSerializable
         if (isset($this->refreshToken)) {
             $json['refresh_token'] = $this->refreshToken;
         }
-        $json = array_merge($this->parameters, $json);
+        $json = array_merge($json, $this->parameters);
         return $json;
     }
 
@@ -105,6 +111,10 @@ class AccessToken implements \JsonSerializable
     public function setRefreshToken(string $refreshToken)
     {
         $this->refreshToken = $refreshToken;
+    }
+    public function hasParameter(string $name)
+    {
+        return array_key_exists($name, $this->parameters);
     }
     public function getParameter(string $name)
     {
