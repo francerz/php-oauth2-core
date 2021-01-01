@@ -8,8 +8,6 @@ class ServerAccessToken extends AccessToken
     private $ownerId;
     private $scope;
 
-    private $scopesArray = [];
-
     public function __construct(
         string $accessToken,
         string $clientId,
@@ -47,7 +45,6 @@ class ServerAccessToken extends AccessToken
     public function setScope(string $scope)
     {
         $this->scope = $scope;
-        $this->scopesArray = explode(' ', $scope);
     }
     public function getScope() : string
     {
@@ -56,15 +53,11 @@ class ServerAccessToken extends AccessToken
 
     public function matchAnyScope(array $scopes)
     {
-        if (empty($scopes)) return true;
-        
-        $matching = array_intersect($this->scopesArray, $scopes);
-        return !empty($matching);
+        return ScopeHelper::matchAny($this->scope, $scopes);
     }
 
     public function matchAllScopes(array $scopes)
     {
-        $matching = array_intersect($this->scopesArray, $scopes);
-        return count($matching) === count($scopes);
+        return ScopeHelper::matchAll($this->scope, $scopes);
     }
 }
