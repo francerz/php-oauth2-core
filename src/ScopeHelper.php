@@ -20,10 +20,11 @@ abstract class ScopeHelper
 
     public static function toString($scope) : string
     {
-        if (is_array($scope)) {
-            $scope = implode(' ', $scope);
-        } elseif (is_object($scope)) {
+        if (is_object($scope)) {
             $scope = (string)$scope;
+        }
+        if (is_array($scope)) {
+            $scope = trim(implode(' ', $scope));
         }
         if (!is_string($scope)) {
             return '';
