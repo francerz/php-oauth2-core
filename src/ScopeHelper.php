@@ -15,7 +15,7 @@ abstract class ScopeHelper
         if (!is_array($scope)) {
             return [];
         }
-        return $scope;
+        return array_unique($scope);
     }
 
     public static function toString($scope) : string
@@ -24,7 +24,7 @@ abstract class ScopeHelper
             $scope = (string)$scope;
         }
         if (is_array($scope)) {
-            $scope = trim(implode(' ', $scope));
+            $scope = trim(implode(' ', array_unique($scope)));
         }
         if (!is_string($scope)) {
             return '';
