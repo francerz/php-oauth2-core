@@ -2,6 +2,7 @@
 
 namespace Francerz\OAuth2;
 
+use Francerz\Http\Utils\HttpHelper;
 use Francerz\Http\Utils\MessageHelper;
 use Psr\Http\Message\MessageInterface;
 
@@ -19,7 +20,7 @@ class AccessToken implements \JsonSerializable
 
     public static function fromHttpMessage(MessageInterface $message) : AccessToken
     {
-        $at = MessageHelper::getContent($message);
+        $at = HttpHelper::getContent($message);
 
         $instance = new static(
             $at->access_token,
