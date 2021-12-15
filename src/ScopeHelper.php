@@ -4,7 +4,7 @@ namespace Francerz\OAuth2;
 
 abstract class ScopeHelper
 {
-    public static function toArray($scope) : array
+    public static function toArray($scope): array
     {
         if (is_object($scope)) {
             $scope = (string)$scope;
@@ -18,7 +18,7 @@ abstract class ScopeHelper
         return array_unique($scope);
     }
 
-    public static function toString($scope) : string
+    public static function toString($scope): string
     {
         if (is_object($scope)) {
             $scope = (string)$scope;
@@ -37,7 +37,9 @@ abstract class ScopeHelper
         $tokenScopes = static::toArray($tokenScopes);
         $matchScopes = static::toArray($matchScopes);
 
-        if (empty($matchScopes)) return true;
+        if (empty($matchScopes)) {
+            return true;
+        }
 
         $matching = array_intersect($tokenScopes, $matchScopes);
         return !empty($matching);

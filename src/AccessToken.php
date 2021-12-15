@@ -2,23 +2,28 @@
 
 namespace Francerz\OAuth2;
 
+use DateInterval;
+use DateTime;
+use DateTimeImmutable;
+use DateTimeInterface;
 use Francerz\Http\Utils\HttpHelper;
-use Francerz\Http\Utils\MessageHelper;
 use Psr\Http\Message\MessageInterface;
 
 class AccessToken implements \JsonSerializable
 {
-
     private $accessToken;
     private $tokenType;
     private $expiresIn;
     private $refreshToken;
-
     private $parameters = array();
 
+    /** @var DateTimeImmutable */
     private $createTime;
 
-    public static function fromHttpMessage(MessageInterface $message) : AccessToken
+    /** @var DateTimeImmutable */
+    private $expireTime;
+
+    public static function fromHttpMessage(MessageInterface $message): AccessToken
     {
         $at = HttpHelper::getContent($message);
 
@@ -37,20 +42,33 @@ class AccessToken implements \JsonSerializable
         return $instance;
     }
 
+    /**
+     * @param string $accessToken
+     * @param string $tokenType
+     * @param integer $expiresIn
+     * @param string|null $refreshToken
+     * @param \DateTimeImmutable|\DateTime|int|null $createTime
+     */
     public function __construct(
         string $accessToken,
         string $tokenType = 'Bearer',
         int $expiresIn = 3600,
         ?string $refreshToken = null,
-        ?int $createTime = null
+        $createTime = null
     ) {
         $this->accessToken = $accessToken;
         $this->tokenType = $tokenType;
         $this->expiresIn = $expiresIn;
         $this->refreshToken = $refreshToken;
-        $this->createTime = is_null($createTime) ? time() : $createTime;
+        if (is_int($createTime)) {
+            $createTime = new DateTimeImmutable("@{$createTime}");
+        } elseif ($createTime instanceof DateTime) {
+            $createTime = DateTimeImmutable::createFromMutable($createTime);
+        }
+        $this->createTime = is_null($createTime) ? new DateTimeImmutable() : $createTime;
+        $this->expireTime = $this->createTime->add(DateInterval::createFromDateString("{$this->expiresIn} seconds"));
     }
-    
+
     public function jsonSerialize()
     {
         $json = array(
@@ -65,23 +83,30 @@ class AccessToken implements \JsonSerializable
         return $json;
     }
 
-    public function getExpireTime() : int
+    public function getExpireTime(): DateTimeImmutable
     {
-        return $this->createTime + $this->expiresIn;
+        return $this->expireTime;
     }
 
-    public function isExpired(int $s = 30) : bool
+    /**
+     * @param int $s
+     * @param DateTimeInterface $now
+     *
+     * @return boolean
+     */
+    public function isExpired(int $s = 30, DateTimeInterface $now = null): bool
     {
-        return $this->getExpireTime() < time() - $s;
+        $now = is_null($now) ? new DateTime() : $now;
+        return $this->expireTime->sub(new DateInterval("P{$s}S")) < $now;
     }
 
     public function __toString()
     {
-        return $this->tokenType . ' ' . $this->accessToken;
+        return "{$this->tokenType} {$this->accessToken}";
     }
 
     #region Property Accesors
-    public function getAccessToken() : string
+    public function getAccessToken(): string
     {
         return $this->accessToken;
     }
@@ -89,7 +114,7 @@ class AccessToken implements \JsonSerializable
     {
         $this->accessToken = $accessToken;
     }
-    public function getTokenType() : string
+    public function getTokenType(): string
     {
         return $this->tokenType;
     }
@@ -97,7 +122,7 @@ class AccessToken implements \JsonSerializable
     {
         $this->tokenType = $tokenType;
     }
-    public function getExpiresIn() : int
+    public function getExpiresIn(): int
     {
         return $this->expiresIn;
     }
@@ -105,7 +130,7 @@ class AccessToken implements \JsonSerializable
     {
         $this->expiresIn = $expiresIn;
     }
-    public function getRefreshToken() : ?string
+    public function getRefreshToken(): ?string
     {
         return $this->refreshToken;
     }
@@ -128,7 +153,7 @@ class AccessToken implements \JsonSerializable
     {
         $this->parameters[$name] = $value;
     }
-    public function getCreateTime() : int
+    public function getCreateTime(): DateTimeImmutable
     {
         return $this->createTime;
     }

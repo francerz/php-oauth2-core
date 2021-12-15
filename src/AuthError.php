@@ -2,29 +2,32 @@
 
 namespace Francerz\OAuth2;
 
-use Francerz\Http\Utils\Constants\StatusCodes;
-use Francerz\Http\Utils\HttpFactoryManager;
+use Fig\Http\Message\StatusCodeInterface;
 use Francerz\Http\Utils\UriHelper;
+use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
 
 class AuthError
 {
-    private $httpFactory;
-
+    /** @var string */
     private $error; // string
+
+    /** @var string */
     private $errorDescription; // error
+
+    /** @var UriInterface */
     private $errorUri; // UriInterface
+
+    /** @var string */
     private $state; // string
 
     public function __construct(
-        HttpFactoryManager $httpFactory,
         string $state,
         string $error,
         ?string $errorDescription = null,
         ?UriInterface $errorUri = null
     ) {
-        $this->httpFactory = $httpFactory;
         $this->state = $state;
         $this->error = $error;
         $this->errorDescription = $errorDescription;
@@ -35,8 +38,10 @@ class AuthError
     {
     }
 
-    public function getErrorRedirect(UriInterface $redirectUri) : ResponseInterface
-    {
+    public function createErrorRedirect(
+        ResponseFactoryInterface $responseFactory,
+        UriInterface $redirectUri
+    ): ResponseInterface {
         $redirectUri = UriHelper::withQueryParams($redirectUri, array(
             'state' => $this->state,
             'error' => $this->error,
@@ -44,9 +49,9 @@ class AuthError
             'error_uri' => $this->errorUri
         ));
 
-        $response = $this->httpFactory->getResponseFactory()
-            ->createResponse(StatusCodes::REDIRECT_TEMPORARY_REDIRECT);
-        $response = $response->withHeader('Location', (string)$redirectUri);
+        $response = $responseFactory
+            ->createResponse(StatusCodeInterface::STATUS_TEMPORARY_REDIRECT)
+            ->withHeader('Location', (string)$redirectUri);
 
         return $response;
     }

@@ -28,7 +28,7 @@ class ServerAccessToken extends AccessToken
     {
         $this->clientId = $clientId;
     }
-    public function getClientId() : string
+    public function getClientId(): string
     {
         return $this->clientId;
     }
@@ -41,12 +41,12 @@ class ServerAccessToken extends AccessToken
     {
         return $this->ownerId;
     }
-    
+
     public function setScope(string $scope)
     {
         $this->scope = $scope;
     }
-    public function getScope() : string
+    public function getScope(): string
     {
         return $this->scope;
     }

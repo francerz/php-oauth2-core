@@ -1,5 +1,7 @@
 <?php
 
+namespace Francerz\OAuth2\Tests;
+
 use Francerz\OAuth2\AccessToken;
 use PHPUnit\Framework\TestCase;
 
@@ -11,11 +13,11 @@ class AccessTokenTest extends TestCase
         $at->setParameter('scope', 'scp1 scp2');
 
         $this->assertEquals('abcdefgh', $at->getAccessToken());
-        $this->assertEquals('Bearer',   $at->getTokenType());
-        $this->assertEquals(3600,       $at->getExpiresIn());
+        $this->assertEquals('Bearer', $at->getTokenType());
+        $this->assertEquals(3600, $at->getExpiresIn());
         $this->assertEquals('ijklmnop', $at->getRefreshToken());
-        $this->assertEquals(10000,      $at->getCreateTime());
-        $this->assertEquals('scp1 scp2',$at->getParameter('scope'));
+        $this->assertEquals(10000, $at->getCreateTime()->format('U'));
+        $this->assertEquals('scp1 scp2', $at->getParameter('scope'));
 
         return $at;
     }
