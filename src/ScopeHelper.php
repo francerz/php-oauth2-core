@@ -4,6 +4,10 @@ namespace Francerz\OAuth2;
 
 abstract class ScopeHelper
 {
+    /**
+     * @param string|array|object $scope
+     * @return array
+     */
     public static function toArray($scope): array
     {
         if (is_object($scope)) {
@@ -18,6 +22,10 @@ abstract class ScopeHelper
         return array_unique($scope);
     }
 
+    /**
+     * @param string|array|object $scope
+     * @return string
+     */
     public static function toString($scope): string
     {
         if (is_object($scope)) {
@@ -32,6 +40,11 @@ abstract class ScopeHelper
         return $scope;
     }
 
+    /**
+     * @param string|array|object $tokenScopes
+     * @param string|array|object $matchScopes
+     * @return bool
+     */
     public static function matchAny($tokenScopes, $matchScopes)
     {
         $tokenScopes = static::toArray($tokenScopes);
@@ -45,6 +58,11 @@ abstract class ScopeHelper
         return !empty($matching);
     }
 
+    /**
+     * @param string|array|object $tokenScopes
+     * @param string|array|object $matchScopes
+     * @return bool
+     */
     public static function matchAll($tokenScopes, $matchScopes)
     {
         $tokenScopes = static::toArray($tokenScopes);
@@ -54,6 +72,11 @@ abstract class ScopeHelper
         return count($matching) === count($matchScopes);
     }
 
+    /**
+     * @param string|array|object $existing
+     * @param string|array|object $new
+     * @return array
+     */
     public static function merge($existing, $new)
     {
         $existing = static::toArray($existing);
@@ -62,6 +85,11 @@ abstract class ScopeHelper
         return array_unique(array_merge($existing, $new));
     }
 
+    /**
+     * @param string|array|object $existing
+     * @param string|array|object $new
+     * @return string
+     */
     public static function mergeString($existing, $new)
     {
         $scopes = static::merge($existing, $new);

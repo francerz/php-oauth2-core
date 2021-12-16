@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e1f17bde57db4c12cf6ec3e5ae4c8c22",
+    "content-hash": "dd74d9cc694d2884a3ff25cb7f791012",
     "packages": [
         {
             "name": "fig/http-message-util",
@@ -61,6 +61,46 @@
                 "source": "https://github.com/php-fig/http-message-util/tree/1.1.5"
             },
             "time": "2020-11-24T22:02:12+00:00"
+        },
+        {
+            "name": "francerz/enum",
+            "version": "v0.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/francerz/php-enum.git",
+                "reference": "02ccd3dc0b2aebd94db0e297430c8a71d5acba8b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/francerz/php-enum/zipball/02ccd3dc0b2aebd94db0e297430c8a71d5acba8b",
+                "reference": "02ccd3dc0b2aebd94db0e297430c8a71d5acba8b",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Francerz\\Enum\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Francerz",
+                    "email": "francerzam@hotmail.com"
+                }
+            ],
+            "description": "PHP Enumeration tool",
+            "support": {
+                "issues": "https://github.com/francerz/php-enum/issues",
+                "source": "https://github.com/francerz/php-enum/tree/v0.1.1"
+            },
+            "time": "2021-10-18T14:08:19+00:00"
         },
         {
             "name": "francerz/http-utils",
@@ -295,6 +335,81 @@
                 }
             ],
             "time": "2020-11-10T18:47:58+00:00"
+        },
+        {
+            "name": "francerz/http",
+            "version": "v0.3.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/francerz/php-http.git",
+                "reference": "a39daafdc3e6aa40755c7edf2ddb37e2b9912bc0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/francerz/php-http/zipball/a39daafdc3e6aa40755c7edf2ddb37e2b9912bc0",
+                "reference": "a39daafdc3e6aa40755c7edf2ddb37e2b9912bc0",
+                "shasum": ""
+            },
+            "require": {
+                "fig/http-message-util": "^1.1",
+                "francerz/http-utils": "^0.2",
+                "francerz/php-power-data": "^0.1",
+                "psr/http-client": "^1.0",
+                "psr/http-factory": "^1.0",
+                "psr/http-message": "^1.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Francerz\\Http\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Basic HTTP client",
+            "support": {
+                "issues": "https://github.com/francerz/php-http/issues",
+                "source": "https://github.com/francerz/php-http/tree/v0.3.10"
+            },
+            "time": "2021-11-04T19:59:08+00:00"
+        },
+        {
+            "name": "francerz/php-power-data",
+            "version": "v0.1.25",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/francerz/php-power-data.git",
+                "reference": "2f57c45f4141ab1fe2f3cd4bf648bf4a9e602787"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/francerz/php-power-data/zipball/2f57c45f4141ab1fe2f3cd4bf648bf4a9e602787",
+                "reference": "2f57c45f4141ab1fe2f3cd4bf648bf4a9e602787",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Francerz\\PowerData\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Francisco CZ"
+                }
+            ],
+            "description": "PHP data structures for complex data handling",
+            "support": {
+                "issues": "https://github.com/francerz/php-power-data/issues",
+                "source": "https://github.com/francerz/php-power-data/tree/v0.1.25"
+            },
+            "time": "2021-10-13T14:00:45+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -1085,6 +1200,58 @@
                 }
             ],
             "time": "2021-09-25T07:37:20+00:00"
+        },
+        {
+            "name": "psr/http-client",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/http-client.git",
+                "reference": "2dfb5f6c5eff0e91e20e913f8c5452ed95b86621"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/http-client/zipball/2dfb5f6c5eff0e91e20e913f8c5452ed95b86621",
+                "reference": "2dfb5f6c5eff0e91e20e913f8c5452ed95b86621",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0 || ^8.0",
+                "psr/http-message": "^1.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Http\\Client\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for HTTP clients",
+            "homepage": "https://github.com/php-fig/http-client",
+            "keywords": [
+                "http",
+                "http-client",
+                "psr",
+                "psr-18"
+            ],
+            "support": {
+                "source": "https://github.com/php-fig/http-client/tree/master"
+            },
+            "time": "2020-06-29T06:28:15+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",

@@ -2,7 +2,9 @@
 
 namespace Francerz\OAuth2;
 
-class AuthorizeRequestTypes
+use Francerz\Enum\AbstractEnum;
+
+class RequestTypesEnum extends AbstractEnum
 {
     public const AUTHORIZATION_CODE = 'code';
 }

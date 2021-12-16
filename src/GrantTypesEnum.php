@@ -2,7 +2,9 @@
 
 namespace Francerz\OAuth2;
 
-class TokenRequestGrantTypes
+use Francerz\Enum\AbstractEnum;
+
+class GrantTypesEnum extends AbstractEnum
 {
     public const AUTHORIZATION_CODE    = 'authorization_code';
     public const TOKEN                 = 'token';

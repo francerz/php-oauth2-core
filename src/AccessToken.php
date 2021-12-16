@@ -23,7 +23,7 @@ class AccessToken implements \JsonSerializable
     /** @var DateTimeImmutable */
     private $expireTime;
 
-    public static function fromHttpMessage(MessageInterface $message): AccessToken
+    public static function fromMessage(MessageInterface $message): AccessToken
     {
         $at = HttpHelper::getContent($message);
 
@@ -97,7 +97,7 @@ class AccessToken implements \JsonSerializable
     public function isExpired(int $s = 30, DateTimeInterface $now = null): bool
     {
         $now = is_null($now) ? new DateTime() : $now;
-        return $this->expireTime->sub(new DateInterval("P{$s}S")) < $now;
+        return $this->expireTime->sub(DateInterval::createFromDateString("{$s} seconds")) < $now;
     }
 
     public function __toString()

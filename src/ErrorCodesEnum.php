@@ -2,7 +2,9 @@
 
 namespace Francerz\OAuth2;
 
-class AuthErrorCodes
+use Francerz\Enum\AbstractEnum;
+
+class ErrorCodesEnum extends AbstractEnum
 {
     /**
      * The request is missing a required parameter, includes an invalid

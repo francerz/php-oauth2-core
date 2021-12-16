@@ -8,15 +8,25 @@ class ServerAccessToken extends AccessToken
     private $ownerId;
     private $scope;
 
+    /**
+     * @param string $accessToken
+     * @param string $clientId
+     * @param string $ownerId
+     * @param string $scope
+     * @param string $tokenType
+     * @param integer $expiresIn
+     * @param string|null $refreshToken
+     * @param \DateTimeImmutable|\DateTime|int|null $createTime
+     */
     public function __construct(
         string $accessToken,
         string $clientId,
-        $ownerId,
+        string $ownerId,
         string $scope = '',
         string $tokenType = 'Bearer',
         int $expiresIn = 3600,
         ?string $refreshToken = null,
-        ?int $createTime = null
+        $createTime = null
     ) {
         parent::__construct($accessToken, $tokenType, $expiresIn, $refreshToken, $createTime);
         $this->clientId = $clientId;
