@@ -14,6 +14,9 @@ abstract class ScopeHelper
             $scope = (string)$scope;
         }
         if (is_string($scope)) {
+            if (empty($scope)) {
+                return [];
+            }
             $scope = explode(' ', $scope);
         }
         if (!is_array($scope)) {
