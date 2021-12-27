@@ -15,6 +15,7 @@ class AccessToken implements \JsonSerializable
     private $tokenType;
     private $expiresIn;
     private $refreshToken;
+    private $scope;
     private $parameters = array();
 
     /** @var DateTimeImmutable */
@@ -32,6 +33,7 @@ class AccessToken implements \JsonSerializable
             $at->token_type,
             $at->expires_in,
             isset($at->refresh_token) ? $at->refresh_token : null,
+            isset($at->scope) ? $at->scope : null,
             null
         );
 
@@ -47,6 +49,7 @@ class AccessToken implements \JsonSerializable
      * @param string $tokenType
      * @param integer $expiresIn
      * @param string|null $refreshToken
+     * @param string|null $scope
      * @param \DateTimeImmutable|\DateTime|int|null $createTime
      */
     public function __construct(
@@ -54,12 +57,14 @@ class AccessToken implements \JsonSerializable
         string $tokenType = 'Bearer',
         int $expiresIn = 3600,
         ?string $refreshToken = null,
+        string $scope = '',
         $createTime = null
     ) {
         $this->accessToken = $accessToken;
         $this->tokenType = $tokenType;
         $this->expiresIn = $expiresIn;
         $this->refreshToken = $refreshToken;
+        $this->scope = $scope;
         if (is_int($createTime)) {
             $createTime = new DateTimeImmutable("@{$createTime}");
         } elseif ($createTime instanceof DateTime) {
@@ -137,6 +142,14 @@ class AccessToken implements \JsonSerializable
     public function setRefreshToken(string $refreshToken)
     {
         $this->refreshToken = $refreshToken;
+    }
+    public function getScope(): string
+    {
+        return $this->scope;
+    }
+    public function setScope(string $scope)
+    {
+        $this->scope = $scope;
     }
     public function hasParameter(string $name)
     {
