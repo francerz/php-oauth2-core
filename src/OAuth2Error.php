@@ -10,7 +10,7 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
 
-class Error implements JsonSerializable
+class OAuth2Error implements JsonSerializable
 {
     /** @var string */
     private $error; // string
@@ -71,10 +71,10 @@ class Error implements JsonSerializable
         if (isset($error)) {
             return $error;
         }
-        return static::fromMessage($request);
+        return static::fromHttpBody($request);
     }
 
-    private static function fromMessage(MessageInterface $message)
+    public static function fromHttpBody(MessageInterface $message)
     {
         $data = HttpHelper::getContent($message);
         if (is_object($data)) {
@@ -92,7 +92,7 @@ class Error implements JsonSerializable
 
     public static function fromResponse(ResponseInterface $response)
     {
-        return static::fromMessage($response);
+        return static::fromHttpBody($response);
     }
 
     public static function fromUri(UriInterface $uri)
