@@ -6,6 +6,7 @@ use DateInterval;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
+use Exception;
 use Francerz\Http\Utils\HttpHelper;
 use Psr\Http\Message\MessageInterface;
 
@@ -28,12 +29,20 @@ class AccessToken implements \JsonSerializable
     {
         $at = HttpHelper::getContent($message);
 
+        if (!is_object($at)) {
+            throw new Exception("Access Token parse error:" . PHP_EOL . (string)$message->getBody());
+        }
+
+        if (is_object($at) && isset($at->error)) {
+            throw new OAuth2ErrorException(OAuth2Error::fromHttpBody($message));
+        }
+
         $instance = new static(
             $at->access_token,
-            $at->token_type,
-            $at->expires_in,
+            isset($at->token_type) ? $at->token_type : 'Bearer',
+            isset($at->expires_in) ? $at->expires_in : 3600,
             isset($at->refresh_token) ? $at->refresh_token : null,
-            isset($at->scope) ? $at->scope : null,
+            isset($at->scope) ? $at->scope : '',
             null
         );
 
