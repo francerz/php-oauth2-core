@@ -6,32 +6,30 @@ class ServerAccessToken extends AccessToken
 {
     private $clientId;
     private $ownerId;
-    private $scope;
 
     /**
-     * @param string $accessToken
      * @param string $clientId
      * @param string $ownerId
-     * @param string $scope
+     * @param string $accessToken
      * @param string $tokenType
      * @param integer $expiresIn
      * @param string|null $refreshToken
+     * @param string $scope
      * @param \DateTimeImmutable|\DateTime|int|null $createTime
      */
     public function __construct(
-        string $accessToken,
         string $clientId,
         string $ownerId,
-        string $scope = '',
+        string $accessToken,
         string $tokenType = 'Bearer',
         int $expiresIn = 3600,
         ?string $refreshToken = null,
+        string $scope = '',
         $createTime = null
     ) {
-        parent::__construct($accessToken, $tokenType, $expiresIn, $refreshToken, $createTime);
+        parent::__construct($accessToken, $tokenType, $expiresIn, $refreshToken, $scope, $createTime);
         $this->clientId = $clientId;
         $this->ownerId = $ownerId;
-        $this->setScope($scope);
     }
 
     public function setClientId(string $clientId)
@@ -52,22 +50,13 @@ class ServerAccessToken extends AccessToken
         return $this->ownerId;
     }
 
-    public function setScope(string $scope)
-    {
-        $this->scope = $scope;
-    }
-    public function getScope(): string
-    {
-        return $this->scope;
-    }
-
     public function matchAnyScope(array $scopes)
     {
-        return ScopeHelper::matchAny($this->scope, $scopes);
+        return ScopeHelper::matchAny($this->getScope(), $scopes);
     }
 
     public function matchAllScopes(array $scopes)
     {
-        return ScopeHelper::matchAll($this->scope, $scopes);
+        return ScopeHelper::matchAll($this->getScope(), $scopes);
     }
 }
