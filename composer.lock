@@ -104,16 +104,16 @@
         },
         {
             "name": "francerz/http-utils",
-            "version": "v0.2.44",
+            "version": "v0.2.45",
             "source": {
                 "type": "git",
                 "url": "https://github.com/francerz/php-http-utils.git",
-                "reference": "84ecde8c59668fbd19201118f80a899c73d83b39"
+                "reference": "8efde8250425a9ec6eea101dcc3dac37b2cf3509"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/francerz/php-http-utils/zipball/84ecde8c59668fbd19201118f80a899c73d83b39",
-                "reference": "84ecde8c59668fbd19201118f80a899c73d83b39",
+                "url": "https://api.github.com/repos/francerz/php-http-utils/zipball/8efde8250425a9ec6eea101dcc3dac37b2cf3509",
+                "reference": "8efde8250425a9ec6eea101dcc3dac37b2cf3509",
                 "shasum": ""
             },
             "require": {
@@ -153,9 +153,9 @@
             ],
             "support": {
                 "issues": "https://github.com/francerz/php-http-utils/issues",
-                "source": "https://github.com/francerz/php-http-utils/tree/v0.2.44"
+                "source": "https://github.com/francerz/php-http-utils/tree/v0.2.45"
             },
-            "time": "2021-10-21T14:34:24+00:00"
+            "time": "2022-01-02T21:53:53+00:00"
         },
         {
             "name": "psr/http-factory",
@@ -338,16 +338,16 @@
         },
         {
             "name": "francerz/http",
-            "version": "v0.3.10",
+            "version": "v0.3.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/francerz/php-http.git",
-                "reference": "a39daafdc3e6aa40755c7edf2ddb37e2b9912bc0"
+                "reference": "44a3cc426867f065b8c3fb3e7814b0d322be0b2c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/francerz/php-http/zipball/a39daafdc3e6aa40755c7edf2ddb37e2b9912bc0",
-                "reference": "a39daafdc3e6aa40755c7edf2ddb37e2b9912bc0",
+                "url": "https://api.github.com/repos/francerz/php-http/zipball/44a3cc426867f065b8c3fb3e7814b0d322be0b2c",
+                "reference": "44a3cc426867f065b8c3fb3e7814b0d322be0b2c",
                 "shasum": ""
             },
             "require": {
@@ -371,9 +371,9 @@
             "description": "Basic HTTP client",
             "support": {
                 "issues": "https://github.com/francerz/php-http/issues",
-                "source": "https://github.com/francerz/php-http/tree/v0.3.10"
+                "source": "https://github.com/francerz/php-http/tree/v0.3.12"
             },
-            "time": "2021-11-04T19:59:08+00:00"
+            "time": "2021-12-23T01:11:28+00:00"
         },
         {
             "name": "francerz/php-power-data",
@@ -1106,16 +1106,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "8.5.21",
+            "version": "8.5.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "50a58a60b85947b0bee4c8ecfe0f4bbdcf20e984"
+                "reference": "ddd05b9d844260353895a3b950a9258126c11503"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/50a58a60b85947b0bee4c8ecfe0f4bbdcf20e984",
-                "reference": "50a58a60b85947b0bee4c8ecfe0f4bbdcf20e984",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/ddd05b9d844260353895a3b950a9258126c11503",
+                "reference": "ddd05b9d844260353895a3b950a9258126c11503",
                 "shasum": ""
             },
             "require": {
@@ -1187,11 +1187,11 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/8.5.21"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/8.5.22"
             },
             "funding": [
                 {
-                    "url": "https://phpunit.de/donate.html",
+                    "url": "https://phpunit.de/sponsors.html",
                     "type": "custom"
                 },
                 {
@@ -1199,7 +1199,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-09-25T07:37:20+00:00"
+            "time": "2021-12-25T06:58:09+00:00"
         },
         {
             "name": "psr/http-client",
