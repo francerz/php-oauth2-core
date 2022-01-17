@@ -76,14 +76,9 @@ class OAuth2Error implements JsonSerializable
 
     public static function fromHttpBody(MessageInterface $message)
     {
-        $data = HttpHelper::getContent($message);
-        if (is_object($data)) {
-            $data = (array)$data;
-        }
-        if (is_string($data)) {
-            $data = ['error' => 'internal_error', 'error_description' => $data];
-        }
-        if (!array_key_exists('error', $data)) {
+        $body = (string)$message->getBody();
+        $data = json_decode($body, true);
+        if (is_null($data) || !array_key_exists('error', $data)) {
             return null;
         }
         return new static(
