@@ -80,6 +80,9 @@ class OAuth2Error implements JsonSerializable
         if (is_object($data)) {
             $data = (array)$data;
         }
+        if (is_string($data)) {
+            $data = ['error' => 'internal_error', 'error_description' => $data];
+        }
         if (!array_key_exists('error', $data)) {
             return null;
         }
