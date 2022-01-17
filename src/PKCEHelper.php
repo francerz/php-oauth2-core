@@ -9,7 +9,7 @@ abstract class PKCEHelper
 {
     /**
      * Generates a criptographically random string with URL safe features.
-     * 
+     *
      * @param int $length The length of random string.
      */
     public static function generateCode($length = 32)
@@ -18,6 +18,7 @@ abstract class PKCEHelper
         $urlsafe = strtr(rtrim(base64_encode($string), '='), '+/', '-_');
         return substr($urlsafe, 0, $length);
     }
+
     public static function urlEncode($code, $method = CodeChallengeMethodsEnum::PLAIN)
     {
         switch ($method) {
