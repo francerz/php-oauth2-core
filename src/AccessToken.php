@@ -76,6 +76,8 @@ class AccessToken implements \JsonSerializable
         $this->scope = $scope;
         if (is_int($createTime)) {
             $createTime = new DateTimeImmutable("@{$createTime}");
+        } elseif (is_string($createTime)) {
+            $createTime = new DateTimeImmutable($createTime);
         } elseif ($createTime instanceof DateTime) {
             $createTime = DateTimeImmutable::createFromMutable($createTime);
         }

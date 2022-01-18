@@ -9,7 +9,7 @@ class AccessTokenTest extends TestCase
 {
     public function testInstantiation()
     {
-        $at = new AccessToken('abcdefgh', 'Bearer', 3600, 'ijklmnop', 10000);
+        $at = new AccessToken('abcdefgh', 'Bearer', 3600, 'ijklmnop', '', 10000);
         $at->setParameter('scope', 'scp1 scp2');
 
         $this->assertEquals('abcdefgh', $at->getAccessToken());

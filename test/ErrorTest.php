@@ -6,21 +6,23 @@ use Francerz\Http\Request;
 use Francerz\Http\Response;
 use Francerz\Http\Uri;
 use Francerz\Http\Utils\UriHelper;
+use Francerz\OAuth2\AuthorizeErrorEnum;
 use Francerz\OAuth2\Error;
 use Francerz\OAuth2\ErrorCodesEnum;
+use Francerz\OAuth2\OAuth2Error;
 use PHPUnit\Framework\TestCase;
 
 class ErrorTest extends TestCase
 {
     public function testBasicError()
     {
-        $error = new Error(
-            ErrorCodesEnum::INVALID_REQUEST,
+        $error = new OAuth2Error(
+            AuthorizeErrorEnum::INVALID_REQUEST,
             'The given request was malformed.',
             'http://example.com/docs/oauth2/invalid_request'
         );
 
-        $this->assertEquals(ErrorCodesEnum::INVALID_REQUEST, $error->getError());
+        $this->assertEquals(AuthorizeErrorEnum::INVALID_REQUEST, $error->getError());
         $this->assertEquals('The given request was malformed.', $error->getErrorDescription());
         $this->assertEquals('http://example.com/docs/oauth2/invalid_request', $error->getErrorUri());
     }
@@ -35,17 +37,17 @@ class ErrorTest extends TestCase
             'error_uri' => 'http://example.com/docs/oauth2/invalid_request'
         ));
 
-        $error = Error::fromUri($uri);
+        $error = OAuth2Error::fromUri($uri);
 
-        $this->assertEquals(ErrorCodesEnum::INVALID_REQUEST, $error->getError());
+        $this->assertEquals(AuthorizeErrorEnum::INVALID_REQUEST, $error->getError());
         $this->assertEquals('The given request was malformed.', $error->getErrorDescription());
         $this->assertEquals('http://example.com/docs/oauth2/invalid_request', $error->getErrorUri());
     }
 
     public function testParsingFromRequest()
     {
-        $expected = new Error(
-            ErrorCodesEnum::ACCESS_DENIED,
+        $expected = new OAuth2Error(
+            AuthorizeErrorEnum::ACCESS_DENIED,
             'Access Denied.',
             'http://example.com/docs/oauth2/access_denied'
         );
@@ -53,15 +55,15 @@ class ErrorTest extends TestCase
         $request = $request->withHeader('Content-Type', 'application/json; charset=utf-8');
         $request->getBody()->write(json_encode($expected));
 
-        $actual = Error::fromRequest($request);
+        $actual = OAuth2Error::fromRequest($request);
 
         $this->assertEquals($expected, $actual);
     }
 
     public function testParsingFromResponse()
     {
-        $expected = new Error(
-            ErrorCodesEnum::ACCESS_DENIED,
+        $expected = new OAuth2Error(
+            AuthorizeErrorEnum::ACCESS_DENIED,
             'Access Denied.',
             'http://example.com/docs/oauth2/access_denied'
         );
@@ -69,7 +71,7 @@ class ErrorTest extends TestCase
         $response = $response->withHeader('Content-Type', 'application/json; charset=utf-8');
         $response->getBody()->write(json_encode($expected));
 
-        $actual = Error::fromResponse($response);
+        $actual = OAuth2Error::fromResponse($response);
 
         $this->assertEquals($expected, $actual);
     }
