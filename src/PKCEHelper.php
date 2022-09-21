@@ -12,7 +12,7 @@ abstract class PKCEHelper
      *
      * @param int $length The length of random string.
      */
-    public static function generateCode($length = 32)
+    public static function generateCode($length = 64)
     {
         $string = random_bytes(ceil($length * 3 / 4));
         $urlsafe = strtr(rtrim(base64_encode($string), '='), '+/', '-_');
