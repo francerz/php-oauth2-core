@@ -7,7 +7,6 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
 use Exception;
-use Francerz\Http\Utils\HttpHelper;
 use Psr\Http\Message\MessageInterface;
 
 class AccessToken implements \JsonSerializable
@@ -27,27 +26,41 @@ class AccessToken implements \JsonSerializable
 
     public static function fromMessage(MessageInterface $message): AccessToken
     {
-        $at = HttpHelper::getContent($message);
+        $jsonString = (string)$message->getBody();
+        return static::fromJsonString($jsonString);
+    }
 
-        if (!is_object($at)) {
-            throw new Exception("Access Token parse error:" . PHP_EOL . (string)$message->getBody());
+    public static function fromJsonString(string $jsonString)
+    {
+        $jsonObject = json_decode($jsonString);
+
+        if (!is_object($jsonObject)) {
+            throw new Exception("Access Token parse error:" . PHP_EOL . $jsonString);
         }
 
-        if (is_object($at) && isset($at->error)) {
-            throw new OAuth2ErrorException(OAuth2Error::fromHttpBody($message));
+        return static::fromObject($jsonObject);
+    }
+
+    private static function fromObject(object $object)
+    {
+        if (isset($object->error)) {
+            throw new OAuth2ErrorException(OAuth2Error::fromObject($object));
         }
 
         $instance = new static(
-            $at->access_token,
-            isset($at->token_type) ? $at->token_type : 'Bearer',
-            isset($at->expires_in) ? $at->expires_in : 3600,
-            isset($at->refresh_token) ? $at->refresh_token : null,
-            isset($at->scope) ? $at->scope : '',
-            null
+            $object->access_token,
+            isset($object->token_type)    ? $object->token_type    : 'Bearer',
+            isset($object->expires_in)    ? $object->expires_in    : 3600,
+            isset($object->refresh_token) ? $object->refresh_token : null,
+            isset($object->scope)         ? $object->scope         : '',
+            isset($object->issued_at)     ? $object->issued_at     : null
         );
 
-        foreach ($at as $k => $v) {
-            $instance->setParameter($k, $v);
+        foreach ($object as $k => $v) {
+            if (in_array($k, ['access_token', 'token_type', 'expires_in', 'refresh_token', 'scope', 'issued_at'])) {
+                continue;
+            }
+            $instance = $instance->withParameter($k, $v);
         }
 
         return $instance;
@@ -69,20 +82,16 @@ class AccessToken implements \JsonSerializable
         string $scope = '',
         $createTime = null
     ) {
+        $createTime = static::valueAsDateTimeImmutable($createTime);
+        $this->createTime = is_null($createTime) ? new DateTimeImmutable() : $createTime;
+
         $this->accessToken = $accessToken;
         $this->tokenType = $tokenType;
         $this->expiresIn = $expiresIn;
         $this->refreshToken = $refreshToken;
         $this->scope = $scope;
-        if (is_int($createTime)) {
-            $createTime = new DateTimeImmutable("@{$createTime}");
-        } elseif (is_string($createTime)) {
-            $createTime = new DateTimeImmutable($createTime);
-        } elseif ($createTime instanceof DateTime) {
-            $createTime = DateTimeImmutable::createFromMutable($createTime);
-        }
-        $this->createTime = is_null($createTime) ? new DateTimeImmutable() : $createTime;
-        $this->expireTime = $this->createTime->add(DateInterval::createFromDateString("{$this->expiresIn} seconds"));
+
+        $this->refreshExpireTime();
     }
 
     public function jsonSerialize()
@@ -96,12 +105,18 @@ class AccessToken implements \JsonSerializable
             $json['refresh_token'] = $this->refreshToken;
         }
         $json = array_merge($json, $this->parameters);
+        $json['issued_at'] = $this->createTime->format(DateTimeImmutable::RFC3339_EXTENDED);
         return $json;
     }
 
     public function getExpireTime(): DateTimeImmutable
     {
         return $this->expireTime;
+    }
+
+    private function refreshExpireTime()
+    {
+        $this->expireTime = $this->createTime->add(DateInterval::createFromDateString("{$this->expiresIn} seconds"));
     }
 
     /**
@@ -126,46 +141,129 @@ class AccessToken implements \JsonSerializable
     {
         return $this->accessToken;
     }
+
+    /**
+     * @deprecated v0.3.4 Use immutable method withAccessToken instead.
+     */
     public function setAccessToken(string $accessToken)
     {
         $this->accessToken = $accessToken;
     }
+
+    /**
+     * @param string $accessToken
+     * @return static
+     */
+    public function withAccessToken(string $accessToken)
+    {
+        $clone = clone $this;
+        $clone->accessToken = $accessToken;
+        return $clone;
+    }
+
     public function getTokenType(): string
     {
         return $this->tokenType;
     }
+
+    /**
+     * @deprecated v0.3.4 Use immutable method withTokenType instead.
+     */
     public function setTokenType(string $tokenType)
     {
         $this->tokenType = $tokenType;
     }
+
+    /**
+     * @param string $tokenType
+     * @return static
+     */
+    public function withTokenType(string $tokenType)
+    {
+        $clone = clone $this;
+        $clone->tokenType = $tokenType;
+        return $clone;
+    }
+
     public function getExpiresIn(): int
     {
         return $this->expiresIn;
     }
+
+    /**
+     * @deprecated v0.3.4 Use immutable method withExpiresIn instead.
+     */
     public function setExpiresIn(int $expiresIn)
     {
         $this->expiresIn = $expiresIn;
+        $this->refreshExpireTime();
     }
+
+    /**
+     * @param int $expiresIn
+     * @return static
+     */
+    public function withExpiresIn(int $expiresIn)
+    {
+        $clone = clone $this;
+        $clone->expiresIn = $expiresIn;
+        $clone->refreshExpireTime();
+        return $clone;
+    }
+
     public function getRefreshToken(): ?string
     {
         return $this->refreshToken;
     }
+
+    /**
+     * @deprecated v0.3.4 Use immutable method withRefreshToken instead.
+     */
     public function setRefreshToken(string $refreshToken)
     {
         $this->refreshToken = $refreshToken;
     }
+
+    /**
+     * @param string $refreshToken
+     * @return static
+     */
+    public function withRefreshToken(string $refreshToken)
+    {
+        $clone = clone $this;
+        $clone->refreshToken = $refreshToken;
+        return $clone;
+    }
+
     public function getScope(): string
     {
         return $this->scope;
     }
+
+    /**
+     * @deprecated v0.3.4 Use immutable method withScope instead.
+     */
     public function setScope(string $scope)
     {
         $this->scope = $scope;
     }
+
+    /**
+     * @param string $scope
+     * @return static
+     */
+    public function withScope(string $scope)
+    {
+        $clone = clone $this;
+        $clone->scope = $scope;
+        return $clone;
+    }
+
     public function hasParameter(string $name)
     {
         return array_key_exists($name, $this->parameters);
     }
+
     public function getParameter(string $name)
     {
         if (array_key_exists($name, $this->parameters)) {
@@ -173,13 +271,47 @@ class AccessToken implements \JsonSerializable
         }
         return null;
     }
+
+    /**
+     * @deprecated v0.3.4 Use immutable method withParameter instead.
+     */
     public function setParameter(string $name, $value)
     {
         $this->parameters[$name] = $value;
     }
+
+    /**
+     * @param string $name
+     * @param mixed $value
+     * @return static
+     */
+    public function withParameter(string $name, $value)
+    {
+        $clone = clone $this;
+        $clone->parameters[$name] = $value;
+        return $clone;
+    }
+
     public function getCreateTime(): DateTimeImmutable
     {
         return $this->createTime;
+    }
+
+    private static function valueAsDateTimeImmutable($value)
+    {
+        if ($value instanceof DateTimeImmutable) {
+            return $value;
+        }
+        if (is_int($value)) {
+            return new DateTimeImmutable("@{$value}");
+        }
+        if (is_string($value)) {
+            return new DateTimeImmutable($value);
+        }
+        if ($value instanceof DateTime) {
+            return DateTimeImmutable::createFromMutable($value);
+        }
+        return null;
     }
     #endregion
 }

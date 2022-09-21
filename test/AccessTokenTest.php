@@ -10,7 +10,7 @@ class AccessTokenTest extends TestCase
     public function testInstantiation()
     {
         $at = new AccessToken('abcdefgh', 'Bearer', 3600, 'ijklmnop', '', 10000);
-        $at->setParameter('scope', 'scp1 scp2');
+        $at = $at->withParameter('scope', 'scp1 scp2');
 
         $this->assertEquals('abcdefgh', $at->getAccessToken());
         $this->assertEquals('Bearer', $at->getTokenType());
@@ -32,7 +32,8 @@ class AccessTokenTest extends TestCase
             'token_type' => 'Bearer',
             'expires_in' => 3600,
             'refresh_token' => 'ijklmnop',
-            'scope' => 'scp1 scp2'
+            'scope' => 'scp1 scp2',
+            'issued_at' => '1970-01-01T02:46:40.000+00:00'
         );
 
         $this->assertEquals(json_encode($expected), json_encode($at));
