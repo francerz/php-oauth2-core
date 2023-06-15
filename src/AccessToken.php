@@ -2,7 +2,6 @@
 
 namespace Francerz\OAuth2;
 
-use DateInterval;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
@@ -52,12 +51,11 @@ class AccessToken implements \JsonSerializable
             isset($object->token_type)    ? $object->token_type    : 'Bearer',
             isset($object->expires_in)    ? $object->expires_in    : 3600,
             isset($object->refresh_token) ? $object->refresh_token : null,
-            isset($object->scope)         ? $object->scope         : '',
-            isset($object->issued_at)     ? $object->issued_at     : null
+            isset($object->scope)         ? $object->scope         : ''
         );
 
         foreach ($object as $k => $v) {
-            if (in_array($k, ['access_token', 'token_type', 'expires_in', 'refresh_token', 'scope', 'issued_at'])) {
+            if (in_array($k, ['access_token', 'token_type', 'expires_in', 'refresh_token', 'scope'])) {
                 continue;
             }
             $instance = $instance->withParameter($k, $v);
@@ -105,7 +103,6 @@ class AccessToken implements \JsonSerializable
             $json['refresh_token'] = $this->refreshToken;
         }
         $json = array_merge($json, $this->parameters);
-        $json['issued_at'] = $this->createTime->format(DateTimeImmutable::RFC3339_EXTENDED);
         return $json;
     }
 
@@ -116,7 +113,7 @@ class AccessToken implements \JsonSerializable
 
     private function refreshExpireTime()
     {
-        $this->expireTime = $this->createTime->add(DateInterval::createFromDateString("{$this->expiresIn} seconds"));
+        $this->expireTime = $this->createTime->modify("+{$this->expiresIn} seconds");
     }
 
     /**
@@ -128,7 +125,7 @@ class AccessToken implements \JsonSerializable
     public function isExpired(int $s = 30, DateTimeInterface $now = null): bool
     {
         $now = is_null($now) ? new DateTime() : $now;
-        return $this->expireTime->sub(DateInterval::createFromDateString("{$s} seconds")) < $now;
+        return $this->expireTime->modify("-{$s} seconds") < $now;
     }
 
     public function __toString()
