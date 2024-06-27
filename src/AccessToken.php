@@ -92,6 +92,7 @@ class AccessToken implements \JsonSerializable
         $this->refreshExpireTime();
     }
 
+    #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
         $json = array(

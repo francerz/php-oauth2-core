@@ -60,6 +60,7 @@ class OAuth2Error implements JsonSerializable
         return $data;
     }
 
+    #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
         return $this->toAssoc();
